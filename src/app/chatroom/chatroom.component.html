@@ -1,0 +1,76 @@
+<!-- <div class="col-lg-4 mt-2">
+    <div class="message-container" id="message-container">
+        <div class="row mt-2" id="messages">
+        </div>
+        <div class="row " id="info-row">
+        </div>
+    </div>
+    <div class="messenger">
+        <div class="input-group mb-3 mt-3">
+            <input type="text" class="form-control" (keydown)="sendInfo($event)" id="message" placeholder="Enter message" [(ngModel)]='message'>
+            <div class="input-group-append">
+                <button class="btn" type="button" id="send" (click)='sendMsg()'><span class="material-icons">
+                    send
+                    </span></button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container">
+    <div class="notRequired"></div>
+    <div class="main" (swipe)="onSwipe($event)">
+        <div class="chatArea">
+            <div class="groupName">
+                <h1>{{roomName|uppercase}}</h1>
+            </div>
+            <div class="messageArea" id="messageArea">
+                <ng-container *ngFor="let item of allMessages">
+                    <div *ngIf="item.myMessage===undefined" id="otherMsg">
+                        <div class="msgcontainer">
+                            <div class="arrow">
+                                <div class="outer"></div>
+                                <div class="inner"></div>
+                            </div>
+                            <div class="message-body">
+                                <p style="font-weight: bold;font-size: 1em;">{{item.userName}}</p>
+                                <p style="margin-top: 5px;font-size: 0.9em;">{{item.message}}</p>
+                                <div class="time" style="font-size: 0.7em;text-align: right;margin-top: 3px;">10:20pm</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="item.myMessage" id="myMsg">
+                        <div class="msgcontainer2">
+                            <div class="arrow">
+                                <div class="outer"></div>
+                                <div class="inner"></div>
+                            </div>
+                            <div class="message-body">
+                                <p style="font-weight: bold;font-size: 1em;">Me</p>
+                                <p style="margin-top: 5px;font-size: 0.9em;">{{item.message}}</p>
+                                <div class="time" style="font-size: 0.7em;text-align: right;margin-top: 3px;">10:20pm</div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <div style="clear:both;width: 100%;text-align: left;color:green;margin-top: 8px;" *ngIf="infos.length>0 && displayInfo">{{infos[infos.length-1].userName}}{{infos[infos.length-1].message}}</div>
+            </div>
+            <div class="messageInput">
+                <input type="text" (keydown)="sendInfo($event)" [(ngModel)]='message' placeholder="Enter message " style="width:70%;border: none;background: transparent;border-bottom: 2px solid green; border-radius: 0 !important; ">
+                <button (click)="sendMsg() " style="width: 10%;border: none;background: transparent;outline: 0;cursor: pointer; ">send</button>
+            </div>
+        </div>
+        <div class="infoArea inactive" [ngClass]="{'active':slideRight}">
+            <div class="inRoom">
+                <h3>Active Users</h3>
+                <ng-container *ngFor="let item of activeUsers">
+                    <div class="contact" id=item>
+                        <div id="avatar"></div>
+                        <div class="name">{{item}}</div>
+                    </div>
+                </ng-container>
+            </div>
+            <button style="background-color: red;border: none;border-radius: 10px;color:white;padding: 0.7em;cursor: pointer;margin-top: 3em;" (click)='leaveRoom()'>Leave Room</button>
+        </div>
+    </div>
+    <div class="notRequired"></div>
+</div>

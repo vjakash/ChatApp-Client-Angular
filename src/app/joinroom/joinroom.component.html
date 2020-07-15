@@ -1,0 +1,9 @@
+<div class="title">
+    <h1>Enter the room name to Join</h1>
+</div>
+<div class="container">
+    <input type="text" [(ngModel)]="roomName" placeholder="Room name" (keyup)="warning=false"> <br><br>
+    <button (click)="join()">join</button>
+    <br>
+    <p *ngIf="warning" style="color: red;">Enter a room name to join</p>
+</div>

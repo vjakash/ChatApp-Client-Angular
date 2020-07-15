@@ -1,0 +1,11 @@
+<div class="title">
+    <h1>You can create a room with custom name</h1>
+</div>
+<div class="container">
+    <input type="text" [(ngModel)]="roomName" placeholder="Room name" (keyup)="warning=false"> <br><br>
+    <button (click)="copyToClipboard(url+'/chatroom/'+roomName)">Copy Link</button><br><br>
+    <button (click)="join()">join</button>
+    <br>
+    <p [ngClass]="{clipboard:copied,clipboardappear:!copied}">Link Copied to clipboard</p>
+    <p *ngIf="warning" style="color: red;">Enter a room name to join</p>
+</div>
