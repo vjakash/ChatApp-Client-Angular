@@ -11,6 +11,7 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
 import { JoinroomComponent } from './joinroom/joinroom.component'
 import * as Hammer from 'hammerjs';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
     'swipe': { direction: Hammer.DIRECTION_ALL },
@@ -33,7 +34,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   providers: [SocketioService,{
     provide: HAMMER_GESTURE_CONFIG,
     useClass: MyHammerConfig,
-  },],
+  },{provide: LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
