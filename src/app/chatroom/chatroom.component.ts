@@ -12,17 +12,19 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
   roomName = '';
   message = '';
   socket;
-  activeUsers = ['vijay'];
-  allMessages = [{
-    type: 'message',
-    userName: 'vijay',
-    message: 'hey there',
-    myMessage:true
-  },{
-    type: 'message',
-    userName: 'akash',
-    message: 'wassup bro?',
-  }];
+  activeUsers = [];
+  allMessages = [];
+  // activeUsers = ['vijay'];
+  // allMessages = [{
+  //   type: 'message',
+  //   userName: 'vijay',
+  //   message: 'hey there',
+  //   myMessage:true
+  // },{
+  //   type: 'message',
+  //   userName: 'akash',
+  //   message: 'wassup bro?',
+  // }];
   infos = [];
   displayInfo = true;
   slideRight=false;
@@ -33,31 +35,31 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
     private router: Router,
     private activeRoute: ActivatedRoute
   ) {
-    // this.userName = prompt('Enter Your Name');
-    // while (
-    //   this.userName === '' ||
-    //   this.userName === undefined ||
-    //   this.userName === null
-    // ) {
-    //   this.userName = prompt('Please Enter Your Name');
-    // }
-    // console.log(this.userName);
+    this.userName = prompt('Enter Your Name');
+    while (
+      this.userName === '' ||
+      this.userName === undefined ||
+      this.userName === null
+    ) {
+      this.userName = prompt('Please Enter Your Name');
+    }
+    console.log(this.userName);
     this.roomName = this.activeRoute.snapshot.params.roomname;
   }
   ngOnInit(): void {
-    // this.socket = this.socketService.createRoom(this.roomName, this.userName);
+    this.socket = this.socketService.createRoom(this.roomName, this.userName);
 
-    // this.socket.on('receiveMessage', (data) => {
-      // console.log(data);
-      // if (data.type == 'info') {
-      //   this.infos.push(data);
-      // } else {
-      //   this.infos = this.infos.filter(
-      //     item => item.userName != data.userName
-      //   );
-      //   console.log(this.infos);
-      //   this.allMessages.push(data);
-      // }
+    this.socket.on('receiveMessage', (data) => {
+      console.log(data);
+      if (data.type == 'info') {
+        this.infos.push(data);
+      } else {
+        this.infos = this.infos.filter(
+          item => item.userName != data.userName
+        );
+        console.log(this.infos);
+        this.allMessages.push(data);
+      }
       // this.container = document.getElementById('messageArea');
       // console.log(
       //   'above',
@@ -70,10 +72,10 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
       //   this.container.scrollTop,
       //   this.container.scrollHeight
       // );
-    // });
-    // this.socket.on('joined', (data) => {
-    //   this.activeUsers = data;
-    // });
+    });
+    this.socket.on('joined', (data) => {
+      this.activeUsers = data;
+    });
   }
   sendInfo(event) {
     if (event.keyCode === 13) {
