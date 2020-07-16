@@ -136,14 +136,17 @@ export class ChatroomComponent implements OnInit, AfterViewInit, OnDestroy {
       Math.abs(evt.deltaX) > 40 ? (evt.deltaX > 0 ? 'right' : 'left') : '';
     const y = Math.abs(evt.deltaY) > 40 ? (evt.deltaY > 0 ? 'down' : 'up') : '';
     console.log(x, y);
-    if (x === 'right' && y==='') {
+    if (x === 'right' && y === '') {
       this.slideRight = true;
     }
-    if (x === 'left' && y==='') {
+    if (x === 'left' && y === '') {
       this.slideRight = false;
     }
   }
   openSideBar() {
     this.slideRight = true;
+  }
+  closeSideBar() {
+    this.slideRight = false;
   }
 }
