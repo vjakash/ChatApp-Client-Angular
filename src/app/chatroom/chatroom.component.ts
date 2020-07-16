@@ -61,18 +61,18 @@ export class ChatroomComponent implements OnInit, AfterViewInit, OnDestroy {
         data.time = new Date();
         this.allMessages.push(data);
       }
-      // this.container = document.getElementById('messageArea');
-      // console.log(
-      //   'above',
-      //   this.container.scrollTop,
-      //   this.container.scrollHeight
-      // );
-      // this.container.scrollTop = this.container.scrollHeight;
-      // console.log(
-      //   'below',
-      //   this.container.scrollTop,
-      //   this.container.scrollHeight
-      // );
+      this.container = document.getElementById('messageArea');
+      console.log(
+        'above',
+        this.container.scrollTop,
+        this.container.scrollHeight
+      );
+      this.container.scrollTop = this.container.scrollHeight;
+      console.log(
+        'below',
+        this.container.scrollTop,
+        this.container.scrollHeight
+      );
     });
     this.socket.on('joined', (data) => {
       this.activeUsers = data;
