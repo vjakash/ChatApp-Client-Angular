@@ -43,21 +43,22 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
     ) {
       this.userName = prompt('Please Enter Your Name');
     }
-    console.log(this.userName);
+    // console.log(this.userName);
     this.roomName = this.activeRoute.snapshot.params.roomname;
   }
   ngOnInit(): void {
     this.socket = this.socketService.createRoom(this.roomName, this.userName);
 
     this.socket.on('receiveMessage', (data) => {
-      console.log(data);
+      // console.log(data);
       if (data.type == 'info') {
         this.infos.push(data);
       } else {
         this.infos = this.infos.filter(
           item => item.userName != data.userName
         );
-        console.log(this.infos);
+        // console.log(this.infos);
+        data.time=new Date();
         this.allMessages.push(data);
       }
       // this.container = document.getElementById('messageArea');
@@ -99,6 +100,7 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
         type: 'message',
         userName: this.userName,
         message: this.message,
+        time:new Date()
       };
       this.socketService.sendMessage(obj);
       obj['myMessage'] = true;
@@ -130,7 +132,7 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
     this.socket.emit('leave');
   }
   onSwipe(evt) {
-    console.log('x','y');
+    // console.log('x','y');
     const x = Math.abs(evt.deltaX) > 40 ? (evt.deltaX > 0 ? 'right' : 'left'):'';
     const y = Math.abs(evt.deltaY) > 40 ? (evt.deltaY > 0 ? 'down' : 'up') : '';
     console.log(x,y);

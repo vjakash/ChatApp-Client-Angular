@@ -25,7 +25,7 @@
             </div>
             <div class="messageArea" id="messageArea">
                 <ng-container *ngFor="let item of allMessages">
-                    <div *ngIf="item.myMessage===undefined" id="otherMsg">
+                    <div *ngIf="item.myMessage===undefined" id="otherMsg" style="margin-bottom: 5px !important;">
                         <div class="msgcontainer">
                             <div class="arrow">
                                 <div class="outer"></div>
@@ -34,11 +34,11 @@
                             <div class="message-body">
                                 <p style="font-weight: bold;font-size: 1em;">{{item.userName}}</p>
                                 <p style="margin-top: 5px;font-size: 0.9em;">{{item.message}}</p>
-                                <div class="time" style="font-size: 0.7em;text-align: right;margin-top: 3px;">10:20pm</div>
+                                <div class="time" style="font-size: 0.7em;text-align: right;margin-top: 3px;">{{item.time|date:'h:mm a'}}</div>
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="item.myMessage" id="myMsg">
+                    <div *ngIf="item.myMessage" id="myMsg" style="margin-bottom: 5px !important;">
                         <div class="msgcontainer2">
                             <div class="arrow">
                                 <div class="outer"></div>
@@ -47,10 +47,11 @@
                             <div class="message-body">
                                 <p style="font-weight: bold;font-size: 1em;">Me</p>
                                 <p style="margin-top: 5px;font-size: 0.9em;">{{item.message}}</p>
-                                <div class="time" style="font-size: 0.7em;text-align: right;margin-top: 3px;">10:20pm</div>
+                                <div class="time" style="font-size: 0.7em;text-align: right;margin-top: 3px;">{{item.time|date:'h:mm a'}}</div>
                             </div>
                         </div>
                     </div>
+                    <br>
                 </ng-container>
                 <div style="clear:both;width: 100%;text-align: left;color:green;margin-top: 8px;" *ngIf="infos.length>0 && displayInfo">{{infos[infos.length-1].userName}}{{infos[infos.length-1].message}}</div>
             </div>
