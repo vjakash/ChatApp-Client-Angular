@@ -1,4 +1,7 @@
 @media screen and (max-width:500px) {
+    #expand {
+        display: block !important;
+    }
     .message-container {
         width: 100%;
         height: 85vh;

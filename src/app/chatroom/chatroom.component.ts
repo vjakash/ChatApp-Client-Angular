@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './chatroom.component.html',
   styleUrls: ['./chatroom.component.css'],
 })
-export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
+export class ChatroomComponent implements OnInit, AfterViewInit, OnDestroy {
   userName = '';
   roomName = '';
   message = '';
@@ -27,8 +27,8 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
   // }];
   infos = [];
   displayInfo = true;
-  slideRight=false;
-  firstTime=true;
+  slideRight = false;
+  firstTime = true;
   container: HTMLElement;
   constructor(
     private socketService: SocketioService,
@@ -55,10 +55,10 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
         this.infos.push(data);
       } else {
         this.infos = this.infos.filter(
-          item => item.userName != data.userName
+          (item) => item.userName != data.userName
         );
         // console.log(this.infos);
-        data.time=new Date();
+        data.time = new Date();
         this.allMessages.push(data);
       }
       // this.container = document.getElementById('messageArea');
@@ -93,32 +93,31 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
       }
     }
   }
-  count=0;
+  count = 0;
   sendMsg() {
     if (this.message !== '') {
       let obj = {
         type: 'message',
         userName: this.userName,
         message: this.message,
-        time:new Date()
+        time: new Date(),
       };
       this.socketService.sendMessage(obj);
       obj['myMessage'] = true;
       this.allMessages.push(obj);
       this.message = '';
       this.container = document.getElementById('messageArea');
-      this.count=this.container.scrollHeight;
-      this.container.scrollTop =this.count;
-      console.log( this.container.scrollTop ,this.container.scrollHeight);
+      this.count = this.container.scrollHeight;
+      this.container.scrollTop = this.count;
+      console.log(this.container.scrollTop, this.container.scrollHeight);
     }
   }
-  leaveRoom(){
-    let cnfm=confirm("Do you really want to leave the room?");
-    if(cnfm){
+  leaveRoom() {
+    let cnfm = confirm('Do you really want to leave the room?');
+    if (cnfm) {
       this.socket.emit('leave');
-    this.router.navigate(['/']);
+      this.router.navigate(['/']);
     }
-    
   }
   ngAfterViewInit() {
     this.container = document.getElementById('messageArea');
@@ -133,14 +132,18 @@ export class ChatroomComponent implements OnInit, AfterViewInit,OnDestroy {
   }
   onSwipe(evt) {
     // console.log('x','y');
-    const x = Math.abs(evt.deltaX) > 40 ? (evt.deltaX > 0 ? 'right' : 'left'):'';
+    const x =
+      Math.abs(evt.deltaX) > 40 ? (evt.deltaX > 0 ? 'right' : 'left') : '';
     const y = Math.abs(evt.deltaY) > 40 ? (evt.deltaY > 0 ? 'down' : 'up') : '';
-    console.log(x,y);
-    if(x==='right'){
-      this.slideRight=true;
+    console.log(x, y);
+    if (x === 'right') {
+      this.slideRight = true;
     }
-    if(x==='left'){
-      this.slideRight=false;
+    if (x === 'left') {
+      this.slideRight = false;
     }
-}
+  }
+  openSideBar() {
+    this.slideRight = true;
+  }
 }

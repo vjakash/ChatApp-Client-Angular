@@ -16,7 +16,8 @@
         </div>
     </div>
 </div> -->
-<div class="container">
+<div class="container" style="position: relative;">
+    <img src="../assets/images/expand-arrow.png" alt="expand" id="expand" (click)='openSideBar()' style="width: 30px; height: 30px;position: absolute;top: 50%;left:0;display:none">
     <div class="notRequired"></div>
     <div class="main" (swipe)="onSwipe($event)">
         <div class="chatArea">
@@ -57,7 +58,8 @@
             </div>
             <div class="messageInput">
                 <input type="text" (keydown)="sendInfo($event)" [(ngModel)]='message' placeholder="Enter message " style="width:70%;border: none;background: transparent;border-bottom: 2px solid green; border-radius: 0 !important; ">
-                <button (click)="sendMsg() " style="width: 10%;border: none;background: transparent;outline: 0;cursor: pointer; ">send</button>
+                <button (click)="sendMsg() " style="width: 5%;border: none;background: transparent;outline: 0;cursor: pointer;position: absolute;margin-top: 1em; "><img src="../assets/images/send-arrow.png" alt="send" style="width: 30px; height: 30px;"></button>
+                <!-- <button><img src="../assets/images/send-button.png" alt="send" style="width: 30px; height: 30px;"></button> -->
             </div>
         </div>
         <div class="infoArea inactive" [ngClass]="{'active':slideRight}">
